@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.modules.sys.dao.SysDictDataDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.shop.modules.sys.dto.custom.SysDictDataDto" id="sysDicdataMap">
+        <result property="dictCode" column="dict_code"/>
+        <result property="dictType" column="dict_type"/>
+        <result property="remark" column="remark"/>
+        <result property="dictValue" column="dict_value"/>
+        <result property="dictSort" column="dict_sort"/>
+        <result property="operateStatus" column="operate_status"/>
+        <result property="validInd" column="valid_ind"/>
+        <result property="createdUser" column="created_user"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="updatedUser" column="updated_user"/>
+        <result property="updatedDate" column="updated_date"/>
+    </resultMap>
+
+
+</mapper>

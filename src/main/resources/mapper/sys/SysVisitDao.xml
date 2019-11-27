@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.modules.sys.dao.SysVisitDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.shop.modules.sys.dto.custom.SysVisitDto" id="sysVisitMap">
+                <result property="visitId" column="visit_id"/>
+                <result property="visitIp" column="visit_ip"/>
+                <result property="visitAddress" column="visit_address"/>
+                <result property="visitNum" column="visit_num"/>
+                <result property="visitX" column="visit_x"/>
+                <result property="visitY" column="visit_y"/>
+                <result property="validInd" column="valid_ind"/>
+                <result property="createdUser" column="created_user"/>
+                <result property="createdDate" column="created_date"/>
+                <result property="updatedUser" column="updated_user"/>
+                <result property="updatedDate" column="updated_date"/>
+            </resultMap>
+
+
+    <sql id="sysVisitAliasColumns">
+               visit_id AS visitId ,
+                       visit_ip AS visitIp ,
+                       visit_address AS visitAddress ,
+                       visit_num AS visitNum ,
+                       visit_x AS visitX ,
+                       visit_y AS visitY ,
+                       valid_ind AS validInd ,
+                       created_user AS createdUser ,
+                       created_date AS createdDate ,
+                       updated_user AS updatedUser ,
+                       updated_date AS updatedDate            </sql>
+
+    <select id="findPageInfo" resultType="com.shop.modules.sys.dto.custom.SysVisitDto">
+    SELECT
+                    visit_id AS visitId ,
+                                visit_ip AS visitIp ,
+                                visit_address AS visitAddress ,
+                                visit_num AS visitNum ,
+                                visit_x AS visitX ,
+                                visit_y AS visitY ,
+                                valid_ind AS validInd ,
+                                created_user AS createdUser ,
+                                created_date AS createdDate ,
+                                updated_user AS updatedUser ,
+                                updated_date AS updatedDate                 FROM
+      sys_visit g
+    <where>
+        1 = 1
+                    <if test="visitId != null and visitId != '' ">
+            AND	g.visit_id =  #{visitId}
+            </if>
+                    <if test="visitIp != null and visitIp != '' ">
+            AND	g.visit_ip =  #{visitIp}
+            </if>
+                    <if test="visitAddress != null and visitAddress != '' ">
+            AND	g.visit_address =  #{visitAddress}
+            </if>
+                    <if test="visitNum != null and visitNum != '' ">
+            AND	g.visit_num =  #{visitNum}
+            </if>
+                    <if test="visitX != null and visitX != '' ">
+            AND	g.visit_x =  #{visitX}
+            </if>
+                    <if test="visitY != null and visitY != '' ">
+            AND	g.visit_y =  #{visitY}
+            </if>
+                    <if test="validInd != null and validInd != '' ">
+            AND	g.valid_ind =  #{validInd}
+            </if>
+                    <if test="createdUser != null and createdUser != '' ">
+            AND	g.created_user =  #{createdUser}
+            </if>
+                    <if test="createdDate != null and createdDate != '' ">
+            AND	g.created_date =  #{createdDate}
+            </if>
+                    <if test="updatedUser != null and updatedUser != '' ">
+            AND	g.updated_user =  #{updatedUser}
+            </if>
+                    <if test="updatedDate != null and updatedDate != '' ">
+            AND	g.updated_date =  #{updatedDate}
+            </if>
+            </where>
+    </select>
+
+    <select id="getVisitNumLog" resultType="String" parameterType="String">
+        SELECT SUM(visit_num) FROM sys_visit
+        <where>
+            1 = 1
+            <if test="s == 1">
+                AND DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_FORMAT(updated_date, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="getVisitAddLog" resultType="String" parameterType="String">
+        SELECT COUNT(visit_id) FROM sys_visit
+        <where>
+            1 = 1
+            <if test="s == 3">
+                AND DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_FORMAT(created_date, '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+</mapper>

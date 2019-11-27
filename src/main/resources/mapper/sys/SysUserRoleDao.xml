@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shop.modules.sys.dao.SysUserRoleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.shop.modules.sys.dto.custom.SysUserRoleDto" id="sysUserRoleMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="operateStatus" column="operate_status"/>
+        <result property="validInd" column="valid_ind"/>
+        <result property="createdUser" column="created_user"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="updatedUser" column="updated_user"/>
+        <result property="updatedDate" column="updated_date"/>
+    </resultMap>
+
+    <delete id="deleteBatch">
+        delete from sys_user_role where role_id in
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <select id="queryRoleIdList" resultType="long">
+		select role_id from sys_user_role where user_id = #{value} AND operate_status='1'
+	</select>
+
+</mapper>
